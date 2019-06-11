@@ -8,9 +8,18 @@ $color5: #F24B4B;
   transition: all .6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@mixin break {
+@mixin break() {
   @media screen and (max-width: 760px) {
     @content;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  .header {
+    width: 100%;
+    height: 20%;
   }
 }
 
@@ -99,33 +108,33 @@ $color5: #F24B4B;
     }
 
     @include break {
-      min-height: 20vh;
+      min-height: 17vh;
       &:nth-child(1) {
-        top: 0;
+        top: 15vh;
         left: 0;
         width: 100%;
       }
 
       &:nth-child(2) {
-        top: 20vh;
+        top: 32vh;
         left: 0;
         width: 100%;
       }
 
       &:nth-child(3) {
-        top: 40vh;
+        top: 49vh;
         left: 0;
         width: 100%;
       }
 
       &:nth-child(4) {
-        top: 60vh;
+        top: 66vh;
         left: 0;
         width: 100%;
       }
 
       &:nth-child(5) {
-        top: 80vh;
+        top: 83vh;
         left: 0;
         width: 100%;
       }
