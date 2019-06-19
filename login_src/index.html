@@ -37,6 +37,15 @@
 							<span class="close-error" onclick="this.parentElement.style.display='none';">&times;</span>
 						</div>
 					</div>
+
+          <!-- displays success messages -->
+          <div class="success-container">
+            <div class="success">
+              <span></span>
+              <a class="close-success" onclick="this.parentElement.style.display='none';">&times;</a>
+            </div>
+          </div>
+
 					<!-- shows after pressing signin, singup, forgot pw, hides after request complete -->
 					<div class="loading-screen">
 						<h1>Loading...</h1>
@@ -68,50 +77,61 @@
 								</div>
 							</div>
 							<div class="sign-up-htm">
-								<div class="group">
-									<label for="signup-email" class="label">Email Address</label>
-									<input
-										id="signup-email"
-										type="text"
-										class="input"
-										pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
-										title="Must be a valid email address"
-									>
-								</div>
-								<div class="group">
-									<label for="signup-pass" class="label">Password</label>
-									<input
-										id="signup-pass"
-										type="password"
-										class="input"
-										data-type="password"
-										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-										title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-									>
-								</div>
-								<div class="group">
-									<label for="reap-pass" class="label">Repeat Password</label>
-									<input id="reap-pass" type="password" class="input" data-type="password">
-								</div>
-								<div class="group">
-									<label for="prod-code" class="label">Product Code</label>
-									<input id="prod-code" type="text" class="input">
-								</div>
-								<div class="group">
-									<label for="first-name" class="label">First Name</label>
-									<input id="first-name" type="text" class="input">
-								</div>
-								<div class="group">
-									<label for="last-name" class="label">Last Name</label>
-									<input id="last-name" type="text" class="input">
-								</div>
-								<div class="group">
-									<input type="submit" class="button" value="Sign Up" id="signUpButton">
-								</div>
-								<div class="hr"></div>
-								<div class="foot-lnk">
-									<label for="tab-1">Already Member?</a>
-								</div>
+                <form id="signup-form" action="javascript:void(0);">
+                  <div class="group">
+  									<label for="signup-email" class="label">Email Address</label>
+  									<input
+  										id="signup-email"
+  										type="text"
+                      name="email"
+  										class="input"
+  										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+  										title="Must be a valid email address"
+  									>
+  								</div>
+  								<div class="group">
+  									<label for="signup-pass" class="label">Password</label>
+  									<input
+  										id="signup-pass"
+  										type="password"
+                      name="password"
+  										class="input"
+  										data-type="password"
+  										pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  										title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+  									>
+  								</div>
+  								<div class="group">
+  									<label for="reap-pass" class="label">Repeat Password</label>
+  									<input
+                      id="reap-pass"
+                      type="password"
+                      class="input"
+                      data-type="password"
+                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  										title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    >
+  								</div>
+  								<div class="group">
+  									<label for="prod-code" class="label">Product Code</label>
+  									<input id="prod-code" type="text" name="productCode" class="input">
+  								</div>
+  								<div class="group">
+  									<label for="first-name" class="label">First Name</label>
+  									<input id="first-name" type="text" name="firstName" class="input">
+  								</div>
+  								<div class="group">
+  									<label for="last-name" class="label">Last Name</label>
+  									<input id="last-name" type="text" name="lastName" class="input">
+  								</div>
+  								<div class="group">
+  									<input type="submit" class="button" value="Sign Up" id="signUpButton">
+  								</div>
+  								<div class="hr"></div>
+  								<div class="foot-lnk">
+  									<label for="tab-1">Already Member?</a>
+  								</div>
+                </form>
 							</div>
 						</div>
 					</div>

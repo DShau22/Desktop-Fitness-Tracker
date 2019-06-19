@@ -13,7 +13,10 @@
 
   <body>
     <div class="container">
-      <h1 class="header">Account Info</h1>
+      <div class="header-container">
+        <span class="header">Account Info</span>
+        <button class="logout-button">logout</button>
+      </div>
       <section class="strips">
         <article class="strips__strip">
           <div class="strip__content">
@@ -84,5 +87,6 @@
     <script>window.$ = window.jQuery = require('../src/scripts/jquery')</script>
     <script>require("../src/scripts/main")</script>
     <script>require("../src/scripts/upload")</script>
+    <script>require("./logout")</script>
   </body>
 </html>

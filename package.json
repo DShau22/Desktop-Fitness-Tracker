@@ -17,9 +17,13 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^5.0.2"
+    "electron": "^5.0.2",
+    "electron-rebuild": "^1.8.5"
   },
   "dependencies": {
-    "compass-mixins": "^0.12.10"
+    "compass-mixins": "^0.12.10",
+    "drivelist": "^8.0.6",
+    "usb": "^1.6.0",
+    "usb-detection": "^4.3.0"
   }
 }

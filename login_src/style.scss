@@ -20,6 +20,29 @@ a{color:inherit;text-decoration:none}
 	.loading-screen {
 		display: none;
 	}
+	.success-container {
+		display: none;
+		.success {
+			margin-bottom: 10px;
+			height: 20px;
+			display: none;
+			background-color: green;
+			border: solid;
+			border-color: green;
+			border-radius: 10px;
+			color: white;
+			.close-success {
+				float: right;
+				margin-right: 5px;
+				color: white;
+				transition: 0.3s;
+				cursor: pointer;
+			}
+			.close-success:hover {
+				color: black;
+			}
+		}
+	}
 	.errors-container {
 		display: none;
 		.error {
