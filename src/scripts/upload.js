@@ -47,11 +47,13 @@ function uploadFile(file, token) {
   headers.append("authorization", `Bearer ${token}`)
 
   return new Promise((resolve, reject) => {
-    const req = new XMLHttpRequest();
-      req.onreadystatechange = function() {
+    const req = new XMLHttpRequest()
+    // makes XMLReq async
+    req.onreadystatechange = function() {
       if (this.readyState === this.DONE) {
         if (req.status === 200) {
-          resolve(req.status)
+          // resolve with the response body passed
+          resolve(req.response)
         } else {
           reject(req.status)
         }
@@ -62,7 +64,7 @@ function uploadFile(file, token) {
 
     req.open("POST", uploadRoute);
     req.setRequestHeader("authorization", `Bearer ${token}`)
-
+    req.responseType = "json"
     req.send(postFormData);
   })
 }
@@ -103,8 +105,20 @@ document.getElementById("uploadButton").onclick = async function() {
         var trackedActivities = readFile(pathModule.join(usbPath, "SADATA.TXT"))
         console.log(trackedActivities)
         var uploadPromise = uploadFile(trackedActivities, data.toString())
-        uploadPromise.then((status) => {
-          console.log("successfully updated database")
+        uploadPromise.then((body) => {
+          console.log("request to the server went through!")
+          if (body.success) {
+            alert("successfully verified token and uploaded file!")
+          } else {
+            // token prob expired, or there was a jank error
+            alert("error:" + body.message)
+
+            // since token prob expired, redirect to login page with sess expired...
+            $("#content").load("./index.html", function() {
+              console.log("load was performed")
+              alert("session expired")
+            })
+          }
         })
         uploadPromise.catch((status) => {
           alert("something went wrong with the upload to the database")

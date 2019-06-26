@@ -1,14 +1,24 @@
 const {app, BrowserWindow, remote} = require('electron')
 const storagePath = __dirname + "/storage/token.txt"
 const fs = require("fs")
+
+// deletes the token given the path you pass
+function deleteToken(path) {
+  fs.writeFile(path, '', function() {
+    console.log('token deleted')
+  })
+}
+
 $(document).ready(function(){
+  console.log("doc ready")
   // show loading screen before the login/spa
   toggleLoad()
 
   // checks if the checkbox is checked or not after doc loads
   var isChecked = $("#check").prop("checked")
-  $("#check").on("click", function(){
-    isChecked = $checkbox.prop("checked")
+  $("#content").on("click", "#check", function(){
+    console.log("checked!")
+    isChecked = $("#check").prop("checked")
   })
 
   // first check if user logged in before, and use token in storage
@@ -28,15 +38,15 @@ $(document).ready(function(){
           $("#content").load("./spasIndex.html", function() {
             console.log("load was performed")
           })
+        } else {
+          // this means there's no token, or it expired
+          deleteToken(storagePath)
         }
       })
   }
   toggleLoad()
 
-  var $signUpButton = $("#signUpButton")
-  var $signInButton = $("#signInButton")
-
-  $signUpButton.on("click", function() {
+  $("#content").on("click", "#signUpButton", function() {
     var errMessage = {}
     // get the values of the form submission
     var email = $("div.sign-up-htm div.group #signup-email").val()
@@ -91,11 +101,11 @@ $(document).ready(function(){
         })
     }
   })
-  $signInButton.on("click", function() {
+  $("#content").on("click", "#signInButton", function() {
+    console.log("sign in button clicked")
     // get the values of the form submission
     var email = $("div.sign-in-htm div.group #login-email").val()
     var password = $("div.sign-in-htm div.group #login-pass").val()
-    console.log("123", email, password)
     var reqBody = {
       email,
       password,
@@ -121,10 +131,13 @@ $(document).ready(function(){
       .done(function(data) {
         const { success, messages } = data
         if (success) {
-          fs.writeFileSync(storagePath, data.token)
-          console.log("success!")
-          $("#content").load("./spasIndex.html", function() {
-            console.log("load was performed")
+          // save the token to a text file
+          fs.writeFile(storagePath, data.token, (err) => {
+            if (err) throw err
+            console.log("success!")
+            $("#content").load("./spasIndex.html", function() {
+              console.log("load was performed")
+            })
           })
         } else {
           showErrors(messages)
@@ -151,7 +164,6 @@ function showErrors(messages) {
   // get the messages in the message field
   var messageArr = Object.values(messages)
   messageArr.forEach(function(msg, idx) {
-    console.log(idx)
     $errors.eq(idx).show().children("span").text(msg)
   })
 }
@@ -163,7 +175,6 @@ function showSuccess(messages) {
   // get the messages in the message field
   var messageArr = Object.values(messages)
   messageArr.forEach(function(msg, idx) {
-    console.log(idx)
     $errors.eq(idx).show().children("span").text(msg)
   })
 }
