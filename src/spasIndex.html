@@ -6,7 +6,7 @@
 
     <title>The HTML5 Herald</title>
 
-    <link rel="stylesheet" href="../src/style.css">
+    <link rel="stylesheet" href="./spasSrc/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   </head>
@@ -35,11 +35,10 @@
           <div class="strip__content">
             <h1 class="strip__title" data-name="Ipsum">Configure</h1>
             <div class="strip__inner-text">
-              <h2>Ettrics</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia sapiente deserunt consectetur, quod reiciendis corrupti quo ea aliquid! Repellendus numquam quo, voluptate. Suscipit soluta omnis quibusdam facilis, illo voluptates odit!</p>
-              <p>
-                <a href="https://twitter.com/ettrics" target="_blank"><i class="fa fa-twitter"></i></a>
-              </p>
+              <h2>Device Settings</h2>
+              <div class="inner_section">
+                add a border around this and buttons
+              </div>
             </div>
           </div>
         </article>
@@ -60,11 +59,13 @@
           <div class="strip__content">
             <h1 class="strip__title" data-name="Sit">Compete</h1>
             <div class="strip__inner-text">
-              <h2>Ettrics</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia sapiente deserunt consectetur, quod reiciendis corrupti quo ea aliquid! Repellendus numquam quo, voluptate. Suscipit soluta omnis quibusdam facilis, illo voluptates odit!</p>
-              <p>
-                <a href="https://twitter.com/ettrics" target="_blank"><i class="fa fa-twitter"></i></a>
-              </p>
+              <h2>Competition</h2>
+              <button id="download-button">download prototype</button>
+              <div class="friends-container">
+                <ul class="friends-list">
+                </ul>
+              </div>
+              <p>button above fetches, generates sample data file, downloads to usb flash</p>
             </div>
           </div>
         </article>
@@ -84,9 +85,10 @@
       </section>
     </div>
 
-    <script>window.$ = window.jQuery = require('../src/scripts/jquery')</script>
-    <script>require("../src/scripts/main")</script>
-    <script>require("../src/scripts/upload")</script>
-    <script>require("./logout")</script>
+    <script>window.$ = window.jQuery = require('./spasSrc/scripts/jquery')</script>
+    <script>require("./spasSrc/scripts/main")</script>
+    <script>require("./spasSrc/scripts/upload")</script>
+    <script>require("./spasSrc/scripts/logout")</script>
+    <script>require("./spasSrc/scripts/download")</script>
   </body>
 </html>

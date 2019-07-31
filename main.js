@@ -16,11 +16,11 @@ function createWindow () {
     height: 750,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('./login_src/index.html')
+  mainWindow.loadFile('./src/index.html')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

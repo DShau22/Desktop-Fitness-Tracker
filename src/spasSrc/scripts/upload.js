@@ -1,12 +1,11 @@
 const electron = require('electron')
-const {dialog} = electron.remote
 const fs = require('fs')
 const usbDetect = require('usb-detection')
 const usb = require('usb')
 const drivelist = require('drivelist');
 const pathModule = require('path')
 const path = require('path')
-const storagePath = path.join(__dirname, "..", "..", "login_src", "storage", "token.txt")
+const storagePath = path.join(__dirname, "..", "..", "storage", "token.txt")
 
 // device properties of the Amphibian
 const amphibian = {
@@ -69,12 +68,13 @@ function uploadFile(file, token) {
   })
 }
 
-function readFile(path) {
-  var contents = fs.readFileSync(path)
+function readFile(filePath) {
+  var contents = fs.readFileSync(filePath)
   var uploadFile = new File([toArrayBuffer(contents)], "uploadedFile.txt")
   return uploadFile
 }
 
+// converts Buffer to an ArrayBuffer
 function toArrayBuffer(myBuf) {
    var myBuffer = new ArrayBuffer(myBuf.length);
    var res = new Uint8Array(myBuffer);
@@ -90,7 +90,7 @@ document.getElementById("uploadButton").onclick = async function() {
   var detectAmphibian = false
 
   // iterate through each drive to find amphibian
-  drives.forEach(async function(drive) {
+  drives.forEach(function(drive) {
     console.log(drive)
     // amphibian is plugged into the user's computer
     if (drive.description == amphibian.description) {
@@ -102,6 +102,7 @@ document.getElementById("uploadButton").onclick = async function() {
       fs.readFile(storagePath, function(err, data) {
         if (err) throw err
         // read and upload the data file
+        // make this async later
         var trackedActivities = readFile(pathModule.join(usbPath, "SADATA.TXT"))
         console.log(trackedActivities)
         var uploadPromise = uploadFile(trackedActivities, data.toString())

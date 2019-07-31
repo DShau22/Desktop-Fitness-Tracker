@@ -1,7 +1,7 @@
-const {app, BrowserWindow, remote} = require('electron')
-const storagePath = __dirname + "/storage/token.txt"
+const path = require("path")
+const storagePath = path.join(__dirname, "..", "..", "./storage/token.txt")
 const fs = require("fs")
-
+const checkIfFirstTime = require("./firstTime")
 // deletes the token given the path you pass
 function deleteToken(path) {
   fs.writeFile(path, '', function() {
@@ -14,9 +14,13 @@ $(document).ready(function(){
   // show loading screen before the login/spa
   toggleLoad()
 
+  // check if this is the first time the user opened the application
+  // if it is, then run setup
+  checkIfFirstTime()
+
   // checks if the checkbox is checked or not after doc loads
   var isChecked = $("#check").prop("checked")
-  $("#content").on("click", "#check", function(){
+  $(document).on("click", "#check", function() {
     console.log("checked!")
     isChecked = $("#check").prop("checked")
   })
@@ -46,61 +50,6 @@ $(document).ready(function(){
   }
   toggleLoad()
 
-  $("#content").on("click", "#signUpButton", function() {
-    var errMessage = {}
-    // get the values of the form submission
-    var email = $("div.sign-up-htm div.group #signup-email").val()
-    var password = $("div.sign-up-htm div.group #signup-pass").val()
-    var productCode = $("div.sign-up-htm div.group #prod-code").val()
-    var reapPassword = $("div.sign-up-htm div.group #reap-pass").val()
-    var firstName = $("div.sign-up-htm div.group #first-name").val()
-    var lastName = $("div.sign-up-htm div.group #last-name").val()
-
-    //make sure 2 passwords are the same
-    if (password !== reapPassword) {
-      errMessage.password = "Error: Passwords must match."
-      showErrors(errMessage)
-    } else {
-      var reqBody = {
-        email,
-        password,
-        firstName,
-        lastName,
-        productCode
-      }
-      // toggles all elements and shows the loading screen
-      toggleLoad()
-
-      // send post request to server for signing up
-      $.ajax({
-        url: "http://localhost:8080/api/account/signup",
-        type: "POST",
-        contentType: 'application/json',
-        data: JSON.stringify(reqBody),
-        dataType: 'json',
-        success: function(data){
-            console.log("device control succeeded");
-        },
-        error: function(){
-            console.log("Device control failed");
-        },
-      })
-        .done(function(data) {
-          const { success, messages } = data
-          if (success) {
-            console.log("success!")
-            clearForm($("#signup-form"))
-            showSuccess({
-              message: "Successfully signed up!"
-            })
-          } else {
-            showErrors(messages)
-          }
-          // toggle back so loading screen hides, elements show
-          toggleLoad()
-        })
-    }
-  })
   $("#content").on("click", "#signInButton", function() {
     console.log("sign in button clicked")
     // get the values of the form submission
@@ -121,12 +70,6 @@ $(document).ready(function(){
       contentType: 'application/json',
       data: JSON.stringify(reqBody),
       dataType: 'json',
-      success: function(data){
-          console.log("device control succeeded");
-      },
-      error: function(){
-          console.log("Device control failed");
-      },
     })
       .done(function(data) {
         const { success, messages } = data
@@ -143,8 +86,8 @@ $(document).ready(function(){
           showErrors(messages)
         }
       })
-      // toggle back so Loading screen hides, elements show
-      toggleLoad()
+    // toggle back so Loading screen hides, elements show
+    toggleLoad()
   })
 }) //end of doc.ready
 
